@@ -15,5 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/courses', 'CourseController@index')->name('profile');
+Route::get('/courses', 'CourseController@index')->name('courses.index');
+Route::get('/courses/{id}', 'CourseController@show')->name('courses.show');
 
