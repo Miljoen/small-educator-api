@@ -4,29 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Slide extends Model
+class Question extends Model
 {
     /**
      * @var string[]
      */
     protected $fillable = [
-        'title',
-        'content'
+        'question_text',
     ];
 
     // ------------------------------------------------------------------------------
     //      Relations
     // ------------------------------------------------------------------------------
 
-    public function lecture(): BelongsTo
+    public function slide(): BelongsTo
     {
-        return $this->belongsTo(Lecture::class);
-    }
-
-    public function questions(): HasMany
-    {
-        return $this->hasMany(Question::class);
+        return $this->belongsTo(Slide::class);
     }
 }
