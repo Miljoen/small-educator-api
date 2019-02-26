@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Lecture;
 use Illuminate\View\View;
-use SimpleXMLElement;
+use Spatie\ArrayToXml\ArrayToXml;
 
 class LectureController extends Controller
 {
-    public function index(): View
+    public function index()
     {
         $lectures = Lecture::query()->with('slides')
-            ->get();
+            ->first();
+        $lecturesArray = (['SmallEducator' => $lectures->toArray()]);
 
-        $xmlElement = new SimpleXMLElement('<rootTag/>');
-        $xmlLectures = $this->toXML($xmlElement, $lectures->toArray());
+        $xmlLectures = ArrayToXml::convert($lecturesArray);
 
-        return view('lecture.index', compact('xmlLectures'));
+        return response()->xml($xmlLectures);
     }
 
     public function show(int $id): View
@@ -30,6 +30,7 @@ class LectureController extends Controller
         return view('lecture.show', compact('xmlLecture'));
     }
 
+    /** TODO: Refactor xml responses */
     function toXML(SimpleXMLElement $object, array $data): SimpleXMLElement
     {
         foreach ($data as $key => $value) {
