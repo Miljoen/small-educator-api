@@ -29,4 +29,9 @@ class Slide extends Model
     {
         return $this->hasMany(Question::class);
     }
+
+    public function backgroundImage(): BelongsTo
+    {
+        return $this->belongsTo(BackgroundImage::class);
+    }
 }
