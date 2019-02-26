@@ -25,7 +25,7 @@ class CourseController extends Controller
             ->get();
 
         $xmlElement = new SimpleXMLElement('<rootTag/>');
-        $xmlCourse = $this->to_xml($xmlElement, $course->toArray());
+        $xmlCourse = $this->toXML($xmlElement, $course->toArray());
 
         return view('course.show', compact('xmlCourse'));
     }
