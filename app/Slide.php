@@ -12,8 +12,7 @@ class Slide extends Model
      * @var string[]
      */
     protected $fillable = [
-        'title',
-        'content'
+        'extra_resource'
     ];
 
     // ------------------------------------------------------------------------------

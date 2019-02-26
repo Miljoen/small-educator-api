@@ -26,8 +26,6 @@ class CreateSlidesTable extends Migration
                 ->references('id')
                 ->on('background_images')
                 ->onDelete('RESTRICT');
-            $table->string('title');
-            $table->text('content');
             $table->string('extra_resource')->nullable();
             $table->integer('order');
 
