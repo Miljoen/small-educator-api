@@ -13,7 +13,6 @@ class Lecture extends Model
      */
     protected $fillable = [
         'title',
-        'description'
     ];
 
     // ------------------------------------------------------------------------------
