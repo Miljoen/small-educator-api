@@ -13,6 +13,7 @@ class Question extends Model
      */
     protected $fillable = [
         'question_text',
+        'multi_select',
     ];
 
     // ------------------------------------------------------------------------------
