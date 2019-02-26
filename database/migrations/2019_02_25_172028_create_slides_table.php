@@ -16,17 +16,21 @@ class CreateSlidesTable extends Migration
         Schema::create('slides', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('lecture_id')->unsigned();
+            $table->integer('lecture_id')
+                ->unsigned();
             $table->foreign('lecture_id')
                 ->references('id')
                 ->on('lectures')
                 ->onDelete('RESTRICT');
-            $table->integer('background_image_id')->unsigned();
+            $table->integer('background_image_id')
+                ->unsigned()
+                ->nullable();
             $table->foreign('background_image_id')
                 ->references('id')
                 ->on('background_images')
                 ->onDelete('RESTRICT');
-            $table->string('extra_resource')->nullable();
+            $table->string('extra_resource')
+                ->nullable();
             $table->integer('order');
 
             $table->timestamps();
