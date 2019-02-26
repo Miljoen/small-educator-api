@@ -21,7 +21,8 @@ class CreateQuestionsTable extends Migration
                 ->references('id')
                 ->on('slides')
                 ->onDelete('RESTRICT');
-            $table->text('question_text');
+            $table->string('question_text');
+            $table->boolean('multi_select');
 
             $table->timestamps();
         });
