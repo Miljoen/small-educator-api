@@ -14,7 +14,7 @@ class CourseController extends Controller
             ->get();
 
         $xmlElement = new SimpleXMLElement('<rootTag/>');
-        $xmlCourses = $this->to_xml($xmlElement, $courses->toArray());
+        $xmlCourses = $this->toXML($xmlElement, $courses->toArray());
 
         return view('course.index', compact('xmlCourses'));
     }
@@ -30,12 +30,12 @@ class CourseController extends Controller
         return view('course.show', compact('xmlCourse'));
     }
 
-    function to_xml(SimpleXMLElement $object, array $data): SimpleXMLElement
+    function toXML(SimpleXMLElement $object, array $data): SimpleXMLElement
     {
         foreach ($data as $key => $value) {
             if (is_array($value)) {
                 $new_object = $object->addChild($key);
-                $this->to_xml($new_object, $value);
+                $this->toXML($new_object, $value);
             } else {
                 if ($key == (int) $key) {
                     $key = "key_$key";
