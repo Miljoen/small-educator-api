@@ -23,6 +23,8 @@ class CreateSlidesTable extends Migration
                 ->onDelete('RESTRICT');
             $table->string('title');
             $table->text('content');
+            $table->string('extra_resource')->nullable();
+            $table->integer('order');
 
             $table->timestamps();
         });
