@@ -11,7 +11,7 @@ class LectureController extends Controller
     public function index(): Response
     {
         $lectures = Lecture::query()->with('slides')
-            ->first();
+            ->get();
 
         $lecturesArray = ([
             'SmallEducator' => $lectures->toArray(),
