@@ -47,6 +47,13 @@ execute the following command.
 docker-compose up
 ```
 
+If you want to run the containers in the background, run the following
+command instead:
+
+```
+docker-compose up -d
+```
+
 After the containers have been setup for the first time, note that
 the database still doesn't have any tables or data. For the application
 to run as expected, run the following commands. Make sure that both
