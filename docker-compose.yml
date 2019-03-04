@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    depends_on:
+      - database
+    links:
+      - database
+    ports:
+      - "8000:8000"
+
+  database:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: small-educator-api
+      MYSQL_USER: root
