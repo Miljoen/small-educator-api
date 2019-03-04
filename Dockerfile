@@ -12,6 +12,6 @@ RUN composer install
 RUN php artisan key:generate
 
 # set command upon launching container
-CMD [ "php", "artisan", "serve" ]
+CMD [ "php", "artisan", "serve", "--host", "0.0.0.0" ]
 
 # don't forget to run `php artisan migrate` & `php artisan db:seed`!
