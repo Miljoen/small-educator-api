@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Course;
+use App\Modules\Course\Course;
+use App\Modules\Course\CoursePresenter;
 use Spatie\ArrayToXml\ArrayToXml;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -10,27 +11,37 @@ class CourseController extends Controller
 {
     public function index(): Response
     {
-        $courses = Course::query()->with('lectures')
-            ->get();
+        /** @var CoursePresenter $coursesPresenter */
+        $coursesPresenter = new CoursePresenter();
 
-        $courseArray = ([
+        /** @var Course[] $courses */
+        $courses = $coursesPresenter->getModels();
+
+        /** @var array $courseArray */
+        $coursesArray = ([
             'SmallEducator' => $courses->toArray(),
         ]);
 
-        $xmlCourses = ArrayToXml::convert($courseArray);
+        /** @var ArrayToXml $xmlCourses */
+        $xmlCourses = ArrayToXml::convert($coursesArray);
 
         return response()->xml($xmlCourses);
     }
 
     public function show(int $id): Response
     {
-        $course = Course::where('id', $id)->with('lectures')
-            ->get();
+        /** @var CoursePresenter $coursesPresenter */
+        $coursePresenter = new CoursePresenter($id);
 
+        /** @var Course $course */
+        $course = $coursePresenter->getModels();
+
+        /** @var array $courseArray */
         $courseArray = ([
             'SmallEducator' => $course->toArray(),
         ]);
 
+        /** @var ArrayToXml $xmlCourses */
         $xmlCourse = ArrayToXml::convert($courseArray);
 
         return response()->xml($xmlCourse);
