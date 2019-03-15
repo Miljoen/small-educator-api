@@ -3,47 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Course;
-use Illuminate\View\View;
-use SimpleXMLElement;
+use Spatie\ArrayToXml\ArrayToXml;
+use Symfony\Component\HttpFoundation\Response;
 
 class CourseController extends Controller
 {
-    public function index(): View
+    public function index(): Response
     {
         $courses = Course::query()->with('lectures')
             ->get();
 
-        $xmlElement = new SimpleXMLElement('<rootTag/>');
-        $xmlCourses = $this->toXML($xmlElement, $courses->toArray());
+        $courseArray = ([
+            'SmallEducator' => $courses->toArray(),
+        ]);
 
-        return view('course.index', compact('xmlCourses'));
+        $xmlCourses = ArrayToXml::convert($courseArray);
+
+        return response()->xml($xmlCourses);
     }
 
-    public function show(int $id): View
+    public function show(int $id): Response
     {
         $course = Course::where('id', $id)->with('lectures')
             ->get();
 
-        $xmlElement = new SimpleXMLElement('<rootTag/>');
-        $xmlCourse = $this->toXML($xmlElement, $course->toArray());
+        $courseArray = ([
+            'SmallEducator' => $course->toArray(),
+        ]);
 
-        return view('course.show', compact('xmlCourse'));
-    }
+        $xmlCourse = ArrayToXml::convert($courseArray);
 
-    function toXML(SimpleXMLElement $object, array $data): SimpleXMLElement
-    {
-        foreach ($data as $key => $value) {
-            if (is_array($value)) {
-                $new_object = $object->addChild($key);
-                $this->toXML($new_object, $value);
-            } else {
-                if ($key == (int) $key) {
-                    $key = "key_$key";
-                }
-
-                $object->addChild($key, $value);
-            }
-        }
-        return $object;
+        return response()->xml($xmlCourse);
     }
 }
