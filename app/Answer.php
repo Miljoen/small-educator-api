@@ -12,6 +12,7 @@ class Answer extends Model
      */
     protected $fillable = [
         'answer_text',
+        'correct_answer',
     ];
 
     // ------------------------------------------------------------------------------

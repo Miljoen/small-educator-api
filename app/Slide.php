@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Slide extends Model
 {
@@ -24,9 +25,9 @@ class Slide extends Model
         return $this->belongsTo(Lecture::class);
     }
 
-    public function questions(): HasMany
+    public function question(): HasOne
     {
-        return $this->hasMany(Question::class);
+        return $this->hasOne(Question::class);
     }
 
     public function backgroundImage(): BelongsTo

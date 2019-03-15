@@ -13,11 +13,11 @@ class LectureController extends Controller
         $lectures = Lecture::query()->with('slides')
             ->get();
 
-        $lecturesArray = ([
+        $lectureArray = ([
             'SmallEducator' => $lectures->toArray(),
         ]);
 
-        $xmlLectures = ArrayToXml::convert($lecturesArray);
+        $xmlLectures = ArrayToXml::convert($lectureArray);
 
         return response()->xml($xmlLectures);
     }

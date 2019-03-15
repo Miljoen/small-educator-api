@@ -17,7 +17,8 @@ class LectureSeeder extends Seeder
 
         foreach ($courses as $course)
         {
-            $course->lectures()->saveMany(factory(Lecture::class, 5)->make());
+            $course->lectures()
+                ->saveMany(factory(Lecture::class, 5)->make());
         }
     }
 }
