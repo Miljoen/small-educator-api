@@ -22,6 +22,7 @@ class CreateAnswersTable extends Migration
                 ->on('questions')
                 ->onDelete('RESTRICT');
             $table->string('answer_text');
+            $table->boolean('correct_answer');
 
             $table->timestamps();
         });
