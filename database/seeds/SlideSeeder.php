@@ -1,6 +1,6 @@
 <?php
 
-use App\Lecture;
+use App\Modules\Lecture\Lecture;
 use App\Slide;
 use Illuminate\Database\Seeder;
 

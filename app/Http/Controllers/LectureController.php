@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Lecture;
+use App\Modules\Lecture\Lecture;
 use Spatie\ArrayToXml\ArrayToXml;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,13 +30,11 @@ class LectureController extends Controller
         foreach ($slides as $slide)
         {
             $slide->TextField = $slide->textFields()->get()->toArray();
-//            dd($slide);
         }
-//        dd($lecture);
-//        dd($slides);
 
-        $lecture->Slides = ['TextSlide' => $slides->toArray()];
-//        dd($lecture);
+        $lecture->Slides = [
+            'TextSlide' => $slides->toArray(),
+        ];
 
         $lectureArray = ([
             'SmallEducator' => $lecture->toArray(),
@@ -44,9 +42,16 @@ class LectureController extends Controller
 
         $xmlLectures = ArrayToXml::convert($lectureArray);
 
+        $xmlResponse = $this->prepareXmlResponse($xmlLectures);
+
+        return response()->xml($xmlResponse);
+    }
+
+    protected function prepareXmlResponse(string $xmlLectures): string
+    {
         $xmlLectures = str_replace("<root>","", $xmlLectures);
         $xmlLectures = str_replace("</root>","", $xmlLectures);
 
-        return response()->xml($xmlLectures);
+        return $xmlLectures;
     }
 }

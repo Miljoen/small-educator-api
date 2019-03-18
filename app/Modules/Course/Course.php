@@ -2,7 +2,7 @@
 
 namespace App\Modules\Course;
 
-use App\Lecture;
+use App\Modules\Lecture\Lecture;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

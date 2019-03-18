@@ -1,7 +1,7 @@
 <?php
 
-use App\Lecture;
 use App\Modules\Course\Course;
+use App\Modules\Lecture\Lecture;
 use Illuminate\Database\Seeder;
 
 class LectureSeeder extends Seeder

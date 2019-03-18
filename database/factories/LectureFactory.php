@@ -1,6 +1,6 @@
 <?php
 
-use App\Lecture;
+use App\Modules\Lecture\Lecture;
 use Faker\Generator as Faker;
 
 $factory->define(Lecture::class, function (Faker $faker) {

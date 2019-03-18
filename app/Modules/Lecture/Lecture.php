@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Modules\Lecture;
 
+use App\Modules\Course\Course;
+use App\Slide;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
