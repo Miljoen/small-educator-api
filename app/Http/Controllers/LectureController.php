@@ -33,6 +33,9 @@ class LectureController extends Controller
 
         $xmlLectures = ArrayToXml::convert($lectureArray);
 
+        $xmlLectures = str_replace("<root>","", $xmlLectures);
+        $xmlLectures = str_replace("</root>","", $xmlLectures);
+
         return response()->xml($xmlLectures);
     }
 }
