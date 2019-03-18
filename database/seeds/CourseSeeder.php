@@ -1,6 +1,6 @@
 <?php
 
-use App\Course;
+use App\Modules\Course\Course;
 use Illuminate\Database\Seeder;
 
 class CourseSeeder extends Seeder
