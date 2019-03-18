@@ -16,7 +16,7 @@ class CreateTextFieldsTable extends Migration
         Schema::create('text_fields', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('content');
+            $table->text('content');
             $table->float('x')
                 ->nullable();
             $table->float('y')
