@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
          $this->call(SlideSeeder::class);
          $this->call(QuestionSeeder::class);
          $this->call(AnswerSeeder::class);
+         $this->call(TextFieldSeeder::class);
     }
 }

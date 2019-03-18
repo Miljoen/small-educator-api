@@ -24,8 +24,19 @@ class LectureController extends Controller
 
     public function show(int $id): Response
     {
-        $lecture = Lecture::where('id', $id)->with('slides')
-            ->get();
+        $lecture = Lecture::where('id', $id)->first();
+
+        $slides = $lecture->slides()->get();
+        foreach ($slides as $slide)
+        {
+            $slide->TextField = $slide->textFields()->get()->toArray();
+//            dd($slide);
+        }
+//        dd($lecture);
+//        dd($slides);
+
+        $lecture->Slides = ['TextSlide' => $slides->toArray()];
+//        dd($lecture);
 
         $lectureArray = ([
             'SmallEducator' => $lecture->toArray(),

@@ -17,8 +17,10 @@ class CreateTextFieldsTable extends Migration
             $table->increments('id');
 
             $table->string('content');
-            $table->float('position_x');
-            $table->float('position_y');
+            $table->float('x')
+                ->nullable();
+            $table->float('y')
+                ->nullable();
 
             $table->timestamps();
         });

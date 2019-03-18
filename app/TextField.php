@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TextField extends Model
 {
@@ -12,16 +12,16 @@ class TextField extends Model
      */
     protected $fillable = [
         'content',
-        'position-x',
-        'position-y',
+        'x',
+        'y',
     ];
 
     // ------------------------------------------------------------------------------
     //      Relations
     // ------------------------------------------------------------------------------
 
-    public function slides(): HasMany
+    public function slides(): BelongsToMany
     {
-        return $this->hasMany(Slide::class);
+        return $this->belongsToMany(Slide::class);
     }
 }

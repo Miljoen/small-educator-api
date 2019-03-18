@@ -28,7 +28,8 @@ class SlideTextField extends Migration
                 ->on('text_fields')
                 ->onDelete('RESTRICT');
 
-            $table->float('time_on_screen');
+            $table->float('time_on_screen')
+                ->default(10);
         });
     }
 
