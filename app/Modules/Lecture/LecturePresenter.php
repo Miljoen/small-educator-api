@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Course;
+namespace App\Modules\Lecture;
 
 use App\Presenter\Presenter;
 use Illuminate\Support\Collection;
@@ -12,25 +12,52 @@ class LecturePresenter extends Presenter
 
     public function __construct(int $id = null)
     {
-        $id ? $this->getCourse($id) : $this->getCourses();
+        $id ? $this->getLecture($id) : $this->getLectures();
     }
 
-    public function getCourses()
+    public function getLectures()
     {
-        $this->models = Course::query()->withLectures()->get();
+        $this->models = Lecture::all();
     }
 
-    public function getCourse(int $id)
+    public function getLecture(int $id)
     {
-        $this->models = Course::withLectures()
-            ->findOrNew($id);
+        $this->models = Lecture::query()
+            ->where('id', '=', $id)
+            ->first();
     }
 
     /**
-     * @return Collection|Course
+     * @return Collection|Lecture
      */
-    function getModels()
+    public function getModels()
     {
         return $this->models;
+    }
+
+    public function prepareLectureSlides(Lecture $lecture)
+    {
+        $slides = $lecture->slides()->get();
+        foreach ($slides as $slide)
+        {
+            $slide->TextField = $slide->textFields()->get()->toArray();
+        }
+
+        $lecture->Slides = [
+            'TextSlide' => $slides->toArray(),
+        ];
+    }
+
+    public function prepareRootTag(Lecture $lecture, string $rootTag): array
+    {
+        return [$rootTag => $lecture->toArray()];
+    }
+
+    public function prepareXmlResponse(string $xmlLectures): string
+    {
+        $xmlLectures = str_replace("<root>","", $xmlLectures);
+        $xmlLectures = str_replace("</root>","", $xmlLectures);
+
+        return $xmlLectures;
     }
 }
