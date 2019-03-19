@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Lecture;
+use App\Modules\Lecture\Lecture;
+use App\Modules\Lecture\LecturePresenter;
 use Spatie\ArrayToXml\ArrayToXml;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,15 +25,21 @@ class LectureController extends Controller
 
     public function show(int $id): Response
     {
-        $lecture = Lecture::where('id', $id)->with('slides')
-            ->get();
+        $lecturePresenter = new LecturePresenter($id);
 
-        $lectureArray = ([
-            'SmallEducator' => $lecture->toArray(),
-        ]);
+        $lecturePresenter->prepareLectureSlides(
+            $lecturePresenter->getModels()
+        );
+
+        $lectureArray = $lecturePresenter->prepareRootTag(
+            $lecturePresenter->getModels(),
+            'SmallEducator'
+        );
 
         $xmlLectures = ArrayToXml::convert($lectureArray);
 
-        return response()->xml($xmlLectures);
+        $xmlResponse = $lecturePresenter->prepareXmlResponse($xmlLectures);
+
+        return response()->xml($xmlResponse);
     }
 }
