@@ -2,6 +2,7 @@
 
 namespace App\Modules\Course;
 
+use App\Http\Resources\CourseResource;
 use App\Presenter\Presenter;
 use Illuminate\Support\Collection;
 
@@ -22,8 +23,7 @@ class CoursePresenter extends Presenter
 
     public function getCourse(int $id)
     {
-        $this->models = Course::withLectures()
-            ->findOrNew($id);
+        $this->models = new CourseResource(Course::withLectures()->findOrNew($id));
     }
 
     /**
