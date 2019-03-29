@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class LectureResource extends JsonResource
+class SlideResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,10 @@ class LectureResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'course_id' => $this->course_id,
-            'title' => $this->title,
-            'slides' => SlideResource::collection($this->whenLoaded('slides')),
+            'lecture_id' => $this->lecture_id,
+            'background_image_id' => $this->background_image_id,
+            'extra_resource' => $this->extra_resource,
+            'order' => $this->order,
         ];
     }
 }
