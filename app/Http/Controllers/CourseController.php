@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CourseResource;
 use App\Modules\Course\Course;
 use App\Modules\Course\CoursePresenter;
-use Spatie\ArrayToXml\ArrayToXml;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class CourseController extends Controller
 {
-    public function index(): Response
+    public function index(): AnonymousResourceCollection
     {
         /** @var CoursePresenter $coursesPresenter */
         $coursesPresenter = new CoursePresenter();
@@ -18,15 +17,7 @@ class CourseController extends Controller
         /** @var Course[] $courses */
         $courses = $coursesPresenter->getModels();
 
-        /** @var array $courseArray */
-        $coursesArray = ([
-            'SmallEducator' => $courses->toArray(),
-        ]);
-
-        /** @var ArrayToXml $xmlCourses */
-        $xmlCourses = ArrayToXml::convert($coursesArray);
-
-        return response()->xml($xmlCourses);
+        return $courses;
     }
 
     public function show(int $id): CourseResource

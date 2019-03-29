@@ -18,12 +18,14 @@ class CoursePresenter extends Presenter
 
     public function getCourses()
     {
-        $this->models = Course::query()->withLectures()->get();
+        $this->models = CourseResource::collection(
+            Course::query()->withLectures()->get());
     }
 
     public function getCourse(int $id)
     {
-        $this->models = new CourseResource(Course::withLectures()->findOrNew($id));
+        $this->models = new CourseResource(
+            Course::withLectures()->findOrNew($id));
     }
 
     /**
