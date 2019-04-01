@@ -24,13 +24,4 @@ class Course extends Model
     {
         return $this->hasMany(Lecture::class);
     }
-
-    // ------------------------------------------------------------------------------
-    //      Local scopes
-    // ------------------------------------------------------------------------------
-
-    public function scopeWithLectures($query)
-    {
-        return $query->with('lectures');
-    }
 }

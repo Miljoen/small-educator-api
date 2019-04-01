@@ -2,44 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Modules\Lecture\Lecture;
+use App\Http\Resources\LectureResource;
 use App\Modules\Lecture\LecturePresenter;
-use Spatie\ArrayToXml\ArrayToXml;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class LectureController extends Controller
 {
-    public function index(): Response
+    /*
+     * Returns all lectures
+     */
+    public function index(): AnonymousResourceCollection
     {
-        $lectures = Lecture::query()->with('slides')
-            ->get();
+        $lecturesPresenter = new LecturePresenter();
+        $lectures = $lecturesPresenter->getModels();
 
-        $lectureArray = ([
-            'SmallEducator' => $lectures->toArray(),
-        ]);
-
-        $xmlLectures = ArrayToXml::convert($lectureArray);
-
-        return response()->xml($xmlLectures);
+        return $lectures;
     }
 
-    public function show(int $id): Response
+    /*
+     * Returns a specific lecture
+     */
+    public function show(int $id): LectureResource
     {
-        $lecturePresenter = new LecturePresenter($id);
+        $lecturesPresenter = new LecturePresenter($id);
+        $lecture = $lecturesPresenter->getModels();
 
-        $lecturePresenter->prepareLectureSlides(
-            $lecturePresenter->getModels()
-        );
-
-        $lectureArray = $lecturePresenter->prepareRootTag(
-            $lecturePresenter->getModels(),
-            'SmallEducator'
-        );
-
-        $xmlLectures = ArrayToXml::convert($lectureArray);
-
-        $xmlResponse = $lecturePresenter->prepareXmlResponse($xmlLectures);
-
-        return response()->xml($xmlResponse);
+        return $lecture;
     }
 }

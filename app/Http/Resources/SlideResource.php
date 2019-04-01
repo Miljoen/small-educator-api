@@ -20,6 +20,7 @@ class SlideResource extends JsonResource
             'background_image_id' => $this->background_image_id,
             'extra_resource' => $this->extra_resource,
             'order' => $this->order,
+            'question' => new QuestionResource($this->whenLoaded('question')),
         ];
     }
 }
