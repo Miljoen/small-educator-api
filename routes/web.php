@@ -14,4 +14,4 @@
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/auth', 'HomeController@index')->name('home');

@@ -4,9 +4,12 @@ namespace App\Modules\Course;
 
 use App\Presenter\Presenter;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class CoursePresenter extends Presenter
 {
+    const UNAUTHENTICATED_MESSAGE = 'Unauthenticated requests, please authenticate';
+
     /** @var Collection $models */
     protected $models;
 
@@ -32,5 +35,10 @@ class CoursePresenter extends Presenter
     function getModels()
     {
         return $this->models;
+    }
+
+    public static function userIsAuthenticated(): bool
+    {
+        return Auth::check();
     }
 }

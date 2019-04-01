@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Modules\Course\CoursePresenter;
 use App\Modules\Lecture\Lecture;
 use App\Modules\Lecture\LecturePresenter;
-use App\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Spatie\ArrayToXml\ArrayToXml;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,7 +27,7 @@ class LectureController extends Controller
             return response()->xml($xmlLectures);
         }
 
-        return response(Auth::UNAUTHENTICATED_MESSAGE);
+        return response(CoursePresenter::UNAUTHENTICATED_MESSAGE);
     }
 
     public function show(int $id): Response
@@ -51,7 +50,7 @@ class LectureController extends Controller
 
             return response()->xml($xmlResponse);
         }
-        return response(Auth::UNAUTHENTICATED_MESSAGE);
+        return response(CoursePresenter::UNAUTHENTICATED_MESSAGE);
     }
 
     public function userIsAuthenticated(): bool
