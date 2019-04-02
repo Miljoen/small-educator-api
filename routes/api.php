@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/courses', 'CourseController@index')->name('courses.index');
 Route::get('/courses/{id}', 'CourseController@show')->name('courses.show');
+Route::post('/courses', 'CourseController@store')->name('courses.store');
 
 Route::get('/lectures', 'LectureController@index')->name('lectures.index');
 Route::get('/lectures/{id}', 'LectureController@show')->name('lectures.show');
