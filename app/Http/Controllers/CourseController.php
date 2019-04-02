@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Modules\Course\Course;
 use App\Modules\Course\CoursePresenter;
+use Illuminate\Http\Request;
 use Spatie\ArrayToXml\ArrayToXml;
 use Symfony\Component\HttpFoundation\Response;
 
-class CourseController extends Controller
-{
-    public function index(): Response
-    {
+class CourseController extends Controller {
+    public function index(): Response {
         /** @var CoursePresenter $coursesPresenter */
         $coursesPresenter = new CoursePresenter();
 
@@ -28,8 +27,7 @@ class CourseController extends Controller
         return response()->xml($xmlCourses);
     }
 
-    public function show(int $id): Response
-    {
+    public function show(int $id): Response {
         /** @var CoursePresenter $coursesPresenter */
         $coursePresenter = new CoursePresenter($id);
 
@@ -45,5 +43,14 @@ class CourseController extends Controller
         $xmlCourse = ArrayToXml::convert($courseArray);
 
         return response()->xml($xmlCourse);
+    }
+
+    public function store(Request $request) {
+
+        /** @var CoursePresenter $coursesPresenter */
+        $coursePresenter = new CoursePresenter();
+
+        $coursePresenter->store($request);
+
     }
 }
