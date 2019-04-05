@@ -3,6 +3,7 @@
 namespace App\Modules\Lecture;
 
 use App\Presenter\Presenter;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class LecturePresenter extends Presenter
@@ -59,5 +60,14 @@ class LecturePresenter extends Presenter
         $xmlLectures = str_replace("</root>","", $xmlLectures);
 
         return $xmlLectures;
+    }
+
+    public function store(Request $request) {
+
+        $lecture = Lecture::create([
+            'title' => $request->title,
+        ]);
+
+        return new Lecture($lecture);
     }
 }

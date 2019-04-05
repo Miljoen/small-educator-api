@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Modules\Lecture\Lecture;
 use App\Modules\Lecture\LecturePresenter;
+use Illuminate\Http\Request;
 use Spatie\ArrayToXml\ArrayToXml;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,5 +42,13 @@ class LectureController extends Controller
         $xmlResponse = $lecturePresenter->prepareXmlResponse($xmlLectures);
 
         return response()->xml($xmlResponse);
+    }
+    public function store(Request $request) {
+
+        /** @var LecturePresenter $lecturePresenter */
+        $lecturePresenter = new LecturePresenter();
+
+        $lecturePresenter->store($request);
+
     }
 }
